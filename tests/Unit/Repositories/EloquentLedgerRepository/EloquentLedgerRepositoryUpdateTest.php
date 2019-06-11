@@ -4,56 +4,57 @@ namespace Tests\Unit\Repositories;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use App\Repositories\EloquentLedgerRepository;
-use App\Models\Ledger;
+
+use App\Models\User;
 use App\Models\Account;
+use App\Models\Ledger;
+use Laravel\Passport\Passport;
+use App\Repositories\EloquentLedgerRepository;
 use App\Http\Resources\LedgerResource;
 
 class EloquentLedgerRepositoryUpdateTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testSuccessful()
-    {
-		$ledger = factory(Ledger::class)->create();
+    protected $ledger;
+    protected $repository;
 
+    public function additionalSetUp()
+	{
+		$this->ledger = factory(Ledger::class)->create();
+
+		$this->repository = $this->app->build(EloquentLedgerRepository::class);
+	}
+
+	public function testSuccessful()
+    {
 		$data = [];
 
-		$repository = $this->app->build(EloquentLedgerRepository::class);
-
-		$result = $repository->update($ledger->id, $data);
+		$result = $this->repository->update($this->ledger->id, $data);
 
         $this->assertInstanceOf(LedgerResource::class, $result);
     }
 
     public function testNameIsCorrect()
     {
-        $ledger = factory(Ledger::class)->create();
-
 		$data = [
         	'name' => 'modified'
 		];
 
-		$repository = $this->app->build(EloquentLedgerRepository::class);
-
-		$result = $repository->update($ledger->id, $data);
+		$result = $this->repository->update($this->ledger->id, $data);
 
         $this->assertEquals($data['name'], $result->name);
     }
 
     public function testAccountIdIsCorrect()
     {
-        $ledger = factory(Ledger::class)->create();
-
 		$account = factory(Account::class)->create();
 
 		$data = [
         	'account_id' => $account->id,
 		];
 
-		$repository = $this->app->build(EloquentLedgerRepository::class);
-
-		$result = $repository->update($ledger->id, $data);
+		$result = $this->repository->update($this->ledger->id, $data);
 
         $this->assertEquals($data['account_id'], $result->account_id);
     }

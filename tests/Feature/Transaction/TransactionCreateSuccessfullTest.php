@@ -5,9 +5,9 @@ namespace Tests\Feature\Ledger;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
+use Laravel\Passport\Passport;
 use App\Models\Account;
 use App\Models\Ledger;
-use Laravel\Passport\Passport;
 
 class TransactionCreateSuccessfulTest extends TestCase
 {

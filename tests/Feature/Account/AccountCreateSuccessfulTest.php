@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Account;
 
-use Laravel\Passport\Passport;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
+use Laravel\Passport\Passport;
 
 class AccountCreateSuccessfulTest extends TestCase
 {

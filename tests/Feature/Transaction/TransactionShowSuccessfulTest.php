@@ -23,7 +23,7 @@ class TransactionShowSuccessfulTest extends TestCase
 
 		Passport::actingAs($user);
 
-        $account = factory(Account::class)->create();
+        $account = factory(Account::class)->create(['user_id' => $user->id]);
 
         list($this->creditee, $this->debitee) = factory(Ledger::class, 2)->create(['account_id' => $account]);
 

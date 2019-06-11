@@ -16,15 +16,15 @@ Route::post('/login/refresh', 'AuthController@refresh');
 Route::post('/logout', 'AuthController@logout');
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('/accounts', 'AccountController@store');
-    Route::get('/accounts/{id}', 'AccountController@show');
-    Route::put('/accounts/{id}', 'AccountController@update');
+    Route::post('/accounts', 'AccountController@store')->middleware('can:store,App\Http\Resources\AccountResource');
+    Route::get('/accounts/{id}', 'AccountController@show')->middleware('can:view,App\Http\Resources\AccountResource,id');
+    Route::put('/accounts/{id}', 'AccountController@update')->middleware('can:update,App\Http\Resources\AccountResource,id');
 
-    Route::post('/ledgers', 'LedgerController@store');
-    Route::get('/ledgers/{id}', 'LedgerController@show');
-    Route::put('/ledgers/{id}', 'LedgerController@update');
+    Route::post('/ledgers', 'LedgerController@store')->middleware('can:store,App\Http\Resources\LedgerResource');
+    Route::get('/ledgers/{id}', 'LedgerController@show')->middleware('can:view,App\Http\Resources\LedgerResource,id');
+    Route::put('/ledgers/{id}', 'LedgerController@update')->middleware('can:update,App\Http\Resources\LedgerResource,id');
 
-    Route::post('/transactions', 'TransactionController@store');
-    Route::get('/transactions/{id}', 'TransactionController@show');
-    Route::delete('/transactions/{id}', 'TransactionController@delete');
+    Route::post('/transactions', 'TransactionController@store')->middleware('can:store,App\Http\Resources\TransactionResource');
+    Route::get('/transactions/{id}', 'TransactionController@show')->middleware('can:view,App\Http\Resources\TransactionResource,id');
+    Route::delete('/transactions/{id}', 'TransactionController@delete')->middleware('can:update,App\Http\Resources\TransactionResource,id');
 });

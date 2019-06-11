@@ -5,8 +5,8 @@ namespace Tests\Feature\Account;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
-use App\Models\Account;
 use Laravel\Passport\Passport;
+use App\Models\Account;
 
 class AccountShowSuccessfulTest extends TestCase
 {
@@ -18,9 +18,12 @@ class AccountShowSuccessfulTest extends TestCase
 	{
 		$user = factory(User::class)->create();
 
-		$account = factory(Account::class)->create(['name' => $this->name]);
-
 		Passport::actingAs($user);
+
+		$account = factory(Account::class)->create([
+			'name' => $this->name,
+			'user_id' => $user->id
+		]);
 
 		$response = $this->get('/api/accounts/'.$account->id);
 

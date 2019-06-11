@@ -5,9 +5,9 @@ namespace Tests\Feature\Account;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
+use Laravel\Passport\Passport;
 use App\Models\Account;
 use App\Models\Ledger;
-use Laravel\Passport\Passport;
 
 class LedgerUpdateValidationTest extends TestCase
 {
@@ -21,7 +21,7 @@ class LedgerUpdateValidationTest extends TestCase
 
         Passport::actingAs($user);
 
-        $account = factory(Account::class)->create(['name' => 'test']);
+        $account = factory(Account::class)->create(['name' => 'test', 'user_id' => $user->id]);
 
         $ledger = factory(Ledger::class)->create([
             'name' => 'one',

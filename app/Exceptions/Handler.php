@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 
 class Handler extends ExceptionHandler
 {
@@ -47,5 +49,46 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
+    }
+
+    /**
+     * Prepare exception for rendering.
+     *
+     * @param  \Exception  $e
+     * @return \Exception
+     */
+    protected function prepareException(Exception $e)
+    {
+    	if ($e instanceof AuthorizationException) {
+            $e = new AccessDeniedHttpException(404, 'Not Found', $e);
+        }
+
+        return parent::prepareException($e);
+    }
+
+    /**
+     * Prepare a JSON response for the given exception.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception $e
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function prepareJsonResponse($request, Exception $e)
+    {
+    	$status = $this->isHttpException($e) ? $e->getStatusCode() : 500;
+
+    	$wrappedResponse = [
+    		'errors' => [
+    			$this->convertExceptionToArray($e),
+				'status' => $status
+			]
+		];
+
+        return new JsonResponse(
+            $wrappedResponse,
+            $status,
+            $this->isHttpException($e) ? $e->getHeaders() : [],
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+        );
     }
 }

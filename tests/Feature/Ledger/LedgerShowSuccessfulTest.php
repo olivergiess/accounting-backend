@@ -20,14 +20,14 @@ class LedgerShowSuccessfulTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->account = factory(Account::class)->create();
+        Passport::actingAs($user);
+
+        $this->account = factory(Account::class)->create(['user_id' => $user->id]);
 
         $ledger = factory(Ledger::class)->create([
             'name' => $this->name,
             'account_id' => $this->account->id
         ]);
-
-        Passport::actingAs($user);
 
         $response = $this->get('/api/ledgers/'.$ledger->id);
 

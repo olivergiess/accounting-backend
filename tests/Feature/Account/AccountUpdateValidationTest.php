@@ -5,23 +5,25 @@ namespace Tests\Feature\Account;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
-use App\Models\Account;
 use Laravel\Passport\Passport;
+use App\Models\Account;
 
 class AccountUpdateValidationTest extends TestCase
 {
 	use DatabaseMigrations;
 
-	protected $name = 'one';
 	protected $newName = 1;
 
 	private function feature()
 	{
 		$user = factory(User::class)->create();
 
-		$account = factory(Account::class)->create(['name' => $this->name]);
-
 		Passport::actingAs($user);
+
+		$account = factory(Account::class)->create([
+			'name' => 'one',
+			'user_id' => $user->id
+		]);
 
 		$payload = [
 			'name'    => $this->newName,

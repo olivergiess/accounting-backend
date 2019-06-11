@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Repositories\AccountRepository;
 use App\Http\Requests\AccountStoreRequest;
 use App\Http\Requests\AccountUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
@@ -16,7 +17,7 @@ class AccountController extends Controller
 	}
 
 	public function store(AccountStoreRequest $request)
-    {
+	{
     	$validated = $request->validated();
 
 		$account = $this->account->create($validated);
