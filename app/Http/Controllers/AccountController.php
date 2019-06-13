@@ -18,9 +18,11 @@ class AccountController extends Controller
 
 	public function store(AccountStoreRequest $request)
 	{
-    	$validated = $request->validated();
+    	$data = $request->validated();
 
-		$account = $this->account->create($validated);
+    	$data['user_id'] = $request->user()->id;
+
+		$account = $this->account->create($data);
 
 		return $account;
     }
@@ -34,9 +36,9 @@ class AccountController extends Controller
 
 	public function update(AccountUpdateRequest $request, int $id)
 	{
-		$validated = $request->validated();
+		$data = $request->validated();
 
-		$account = $this->account->update($id, $validated);
+		$account = $this->account->update($id, $data);
 
 		return $account;
 	}

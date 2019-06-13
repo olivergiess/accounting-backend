@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Account;
 
+use App\Models\Account;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
@@ -101,5 +102,21 @@ class LedgerCreateValidationTest extends TestCase
         $errors = $this->errors(['account_id' => 'asdasd']);
 
         $this->assertContains('The account id must be an integer.', $errors->account_id);
+    }
+
+    public function testAccountIdMustBeValid()
+    {
+        $errors = $this->errors(['account_id' => 1]);
+
+        $this->assertContains('The selected account id is invalid.', $errors->account_id);
+    }
+
+    public function testAccountIdMustBelongToAuthenticatedUser()
+    {
+    	$account = factory(Account::class)->create();
+
+        $errors = $this->errors(['account_id' => $account->id]);
+
+        $this->assertContains('The selected account id is invalid.', $errors->account_id);
     }
 }

@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Auth\AuthenticationException;
+use App\Exceptions\AuthenticationHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -59,9 +61,14 @@ class Handler extends ExceptionHandler
      */
     protected function prepareException(Exception $e)
     {
-    	if ($e instanceof AuthorizationException) {
+    	if ($e instanceof AuthorizationException)
+    	{
             $e = new AccessDeniedHttpException(404, 'Not Found', $e);
         }
+        else if ($e instanceof AuthenticationException)
+		{
+			$e = new AuthenticationHttpException(401, 'Unauthorised', $e);
+		}
 
         return parent::prepareException($e);
     }
@@ -78,10 +85,13 @@ class Handler extends ExceptionHandler
     	$status = $this->isHttpException($e) ? $e->getStatusCode() : 500;
 
     	$wrappedResponse = [
-    		'errors' => [
-    			$this->convertExceptionToArray($e),
-				'status' => $status
-			]
+    		'errors' =>
+    			array_merge(
+    				$this->convertExceptionToArray($e),
+					[
+    					'status' => $status
+					]
+				)
 		];
 
         return new JsonResponse(

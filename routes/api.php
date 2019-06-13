@@ -26,5 +26,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/transactions', 'TransactionController@store')->middleware('can:store,App\Http\Resources\TransactionResource');
     Route::get('/transactions/{id}', 'TransactionController@show')->middleware('can:view,App\Http\Resources\TransactionResource,id');
-    Route::delete('/transactions/{id}', 'TransactionController@delete')->middleware('can:update,App\Http\Resources\TransactionResource,id');
+    Route::delete('/transactions/{id}', 'TransactionController@delete')->middleware('can:delete,App\Http\Resources\TransactionResource,id');
+
+    Route::fallback(function() {});
 });

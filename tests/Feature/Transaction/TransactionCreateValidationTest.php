@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Account;
 
+use App\Models\Ledger;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
@@ -102,6 +103,15 @@ class TransactionCreateValidationTest extends TestCase
         $this->assertContains('The selected credit ledger id is invalid.', $errors->credit_ledger_id);
     }
 
+    public function testCreditLedgerIdMustBelongToAuthenticatedUser()
+    {
+    	$ledger = factory(Ledger::class)->create();
+
+        $errors = $this->errors(['credit_ledger_id' => $ledger->id]);
+
+        $this->assertContains('The selected credit ledger id is invalid.', $errors->credit_ledger_id);
+    }
+
     public function testErrorsHasDebitLedgerId()
     {
         $errors = $this->errors();
@@ -119,6 +129,15 @@ class TransactionCreateValidationTest extends TestCase
     public function testDebitLedgerIdMustBeValid()
     {
         $errors = $this->errors(['debit_ledger_id' => 'wasd']);
+
+        $this->assertContains('The selected debit ledger id is invalid.', $errors->debit_ledger_id);
+    }
+
+    public function testDebitLedgerIdMustBelongToAuthenticatedUser()
+    {
+    	$ledger = factory(Ledger::class)->create();
+
+        $errors = $this->errors(['debit_ledger_id' => $ledger->id]);
 
         $this->assertContains('The selected debit ledger id is invalid.', $errors->debit_ledger_id);
     }

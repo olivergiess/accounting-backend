@@ -22,11 +22,12 @@ class TransactionController extends Controller
 
     public function store(TransactionStoreRequest $request)
     {
-        $validated = $request->validated();
+        $data = $request->validated();
 
-        $credit_ledger = $this->ledgerRepository->show($validated['credit_ledger_id']);
-		$debit_ledger  = $this->ledgerRepository->show($validated['debit_ledger_id']);
+        $credit_ledger = $this->ledgerRepository->show($data['credit_ledger_id']);
+		$debit_ledger  = $this->ledgerRepository->show($data['debit_ledger_id']);
 
+		// TODO: This needs to be refactored, fugly AF.
 		if($credit_ledger->account_id != $debit_ledger->account_id)
 			return response()->json([
 				'message'=>'',
@@ -36,7 +37,7 @@ class TransactionController extends Controller
 				]
 									], 422);
 
-		$transaction = $this->transaction->create($validated);
+		$transaction = $this->transaction->create($data);
 
         $this->ledger->transfer($request->amount, $transaction->debit_ledger_id, $transaction->credit_ledger_id);
 

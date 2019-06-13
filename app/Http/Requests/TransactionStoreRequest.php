@@ -15,8 +15,8 @@ class TransactionStoreRequest extends FormRequest
     {
         return [
             'amount'           => 'required|integer',
-			'credit_ledger_id' => 'required|exists:ledgers,id',
-			'debit_ledger_id'  => 'required|exists:ledgers,id',
+			'credit_ledger_id' => 'bail|required|exists:ledgers,id|can:App\Http\Resources\LedgerResource,view',
+			'debit_ledger_id'  => 'bail|required|exists:ledgers,id|can:App\Http\Resources\LedgerResource,view',
         ];
     }
 }

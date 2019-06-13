@@ -14,11 +14,12 @@ class AccountShowSuccessfulTest extends TestCase
 
 	protected $name = 'test';
 
-	private function feature()
+	private function feature($auth = TRUE)
 	{
 		$user = factory(User::class)->create();
 
-		Passport::actingAs($user);
+		if($auth)
+			Passport::actingAs($user);
 
 		$account = factory(Account::class)->create([
 			'name' => $this->name,
@@ -41,6 +42,13 @@ class AccountShowSuccessfulTest extends TestCase
         $data = $json->data;
 
         return $data;
+	}
+
+	public function testMustBeAuthenticated()
+	{
+		$response = $this->feature(FALSE);
+
+        $this->assertEquals(401, $response->getStatusCode());
 	}
 
 	public function testResponseCodeIs200()

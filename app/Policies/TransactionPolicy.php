@@ -24,15 +24,18 @@ class TransactionPolicy
 
     public function view(User $user, int $id)
 	{
+		return $this->owns($user, $id);
+    }
+
+    public function delete(User $user, int $id)
+    {
+    	return $this->owns($user, $id);
+    }
+
+    public function owns(User $user, int $id)
+	{
 		$transaction = $this->repository->show($id);
 
         return $user->id == $transaction->debitee->account->user_id;
-    }
-
-    public function update(User $user, int $id)
-    {
-    	$transaction = $this->repository->show($id);
-
-        return $user->id == $transaction->debitee->account->user_id;
-    }
+	}
 }

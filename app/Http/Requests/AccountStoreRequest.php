@@ -14,8 +14,7 @@ class AccountStoreRequest extends FormRequest
     public function rules()
     {
         return [
-    		'name'    => 'required|string',
-			'user_id' => 'required|integer',
+    		'name' => 'required|string',
 		];
     }
 }

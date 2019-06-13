@@ -11,7 +11,7 @@ class AccountRelationshipTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testAccountRelationshipLedgersReturnsInstanceOfHasMany()
+    public function testLedgersReturnsHasMany()
     {
         $account = factory(Account::class)->create();
 

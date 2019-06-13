@@ -24,15 +24,18 @@ class LedgerPolicy
 
     public function view(User $user, int $id)
 	{
-		$ledger = $this->repository->show($id);
-
-        return $user->id == $ledger->account->user_id;
+		return $this->owns($user, $id);
     }
 
     public function update(User $user, int $id)
     {
-    	$ledger = $this->repository->show($id);
+		return $this->owns($user, $id);
+    }
+
+    public function owns(User $user, int $id)
+	{
+		$ledger = $this->repository->show($id);
 
         return $user->id == $ledger->account->user_id;
-    }
+	}
 }

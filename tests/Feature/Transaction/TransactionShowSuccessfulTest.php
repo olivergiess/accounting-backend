@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Account;
 
+use App\Models\Transaction;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
@@ -17,32 +18,24 @@ class TransactionShowSuccessfulTest extends TestCase
     protected $creditee;
     protected $debitee;
 
-    private function feature()
+    private function feature($auth = TRUE)
     {
         $user = factory(User::class)->create();
 
-		Passport::actingAs($user);
+        if($auth)
+			Passport::actingAs($user);
 
         $account = factory(Account::class)->create(['user_id' => $user->id]);
 
         list($this->creditee, $this->debitee) = factory(Ledger::class, 2)->create(['account_id' => $account]);
 
-        $transaction = $this->post('/api/transactions', [
+        $transaction = factory(Transaction::class)->create([
         	'amount' => $this->amount,
-        	'credit_ledger_id' => $this->creditee->id,
-			'debit_ledger_id' => $this->debitee->id
-	    ]);
+			'credit_ledger_id' => $this->creditee->id,
+			'debit_ledger_id' => $this->debitee->id,
+		]);
 
-        $content = $transaction->getContent();
-
-        $json = json_decode($content);
-
-        $data = $json->data;
-
-		$response = $this->get('/api/transactions/'.$data->id);
-
-		$this->creditee->refresh();
-		$this->debitee->refresh();
+		$response = $this->get('/api/transactions/'.$transaction->id);
 
         return $response;
     }
@@ -59,6 +52,13 @@ class TransactionShowSuccessfulTest extends TestCase
 
         return $data;
     }
+
+	public function testMustBeAuthenticated()
+	{
+		$response = $this->feature(FALSE);
+
+        $this->assertEquals(401, $response->getStatusCode(), 'Failed asserting that user is authenticated.');
+	}
 
     public function testResponseCodeIs200()
     {
@@ -167,13 +167,6 @@ class TransactionShowSuccessfulTest extends TestCase
         $this->assertEquals($this->creditee->id, $credit_ledger_id);
     }
 
-	public function testCrediteeBalanceHasBeenUpdatedCorrectly()
-	{
-		$this->feature();
-
-		$this->assertEquals($this->amount, $this->creditee->balance);
-	}
-
     public function testAttributesHasDebitLedgerId()
     {
         $data = $this->data();
@@ -193,11 +186,4 @@ class TransactionShowSuccessfulTest extends TestCase
 
         $this->assertEquals($this->debitee->id, $debit_ledger_id);
     }
-
-	public function testDebiteeBalanceHasBeenUpdatedCorrectly()
-	{
-		$this->feature();
-
-		$this->assertEquals((-1 * $this->amount), $this->debitee->balance);
-	}
 }

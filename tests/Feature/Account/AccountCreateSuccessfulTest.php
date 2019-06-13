@@ -5,23 +5,25 @@ namespace Tests\Feature\Account;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
+use App\Models\Account;
 use Laravel\Passport\Passport;
 
 class AccountCreateSuccessfulTest extends TestCase
 {
 	use DatabaseMigrations;
 
+	protected $user;
 	protected $name = 'test';
 
-	private function feature()
+	private function feature($auth = TRUE)
 	{
-		$user = factory(User::class)->create();
+		$this->user = factory(User::class)->create();
 
-		Passport::actingAs($user);
+		if($auth)
+			Passport::actingAs($this->user);
 
 		$payload = [
 			'name'    => $this->name,
-			'user_id' => $user->id,
 		];
 
 		$response = $this->post('/api/accounts', $payload);
@@ -40,6 +42,22 @@ class AccountCreateSuccessfulTest extends TestCase
         $data = $json->data;
 
         return $data;
+	}
+
+	public function testMustBeAuthenticated()
+	{
+		$response = $this->feature(FALSE);
+
+        $this->assertEquals(401, $response->getStatusCode());
+	}
+
+	public function testBelongsToAuthenticatedUser()
+	{
+		$data = $this->data();
+
+		$account = Account::findOrFail($data->id);
+
+        $this->assertEquals($this->user->id, $account->user_id);
 	}
 
 	public function testResponseCodeIs201()

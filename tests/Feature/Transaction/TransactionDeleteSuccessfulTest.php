@@ -2,12 +2,14 @@
 
 namespace Tests\Feature\Account;
 
+use App\Models\Transaction;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
 use App\Models\Account;
 use App\Models\Ledger;
 use Laravel\Passport\Passport;
+use App\Libraries\Ledger as LedgerLibrary;
 
 class TransactionDeleteSuccessfulTest extends TestCase
 {
@@ -17,35 +19,37 @@ class TransactionDeleteSuccessfulTest extends TestCase
     protected $creditee;
     protected $debitee;
 
-    private function feature()
+    private function feature($auth = TRUE)
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user);
+        if($auth)
+        	Passport::actingAs($user);
 
         $account = factory(Account::class)->create(['user_id' => $user->id]);
 
         list($this->creditee, $this->debitee) = factory(Ledger::class, 2)->create(['account_id' => $account]);
 
-        $transaction = $this->post('/api/transactions', [
+        $transaction = factory(Transaction::class)->create([
         	'amount' => $this->amount,
         	'credit_ledger_id' => $this->creditee->id,
 			'debit_ledger_id' => $this->debitee->id
-	    ]);
+														   ]);
 
-        $content = $transaction->getContent();
+        $ledgerLibrary = $this->app->build(LedgerLibrary::class);
+        $ledgerLibrary->transfer($transaction->amount, $transaction->debit_ledger_id, $transaction->credit_ledger_id);
 
-        $json = json_decode($content);
-
-        $data = $json->data;
-
-		$response = $this->delete('/api/transactions/'.$data->id);
-
-		$this->creditee->refresh();
-		$this->debitee->refresh();
+		$response = $this->delete('/api/transactions/'.$transaction->id);
 
         return $response;
     }
+
+	public function testMustBeAuthenticated()
+	{
+		$response = $this->feature(FALSE);
+
+        $this->assertEquals(401, $response->getStatusCode());
+	}
 
     public function testResponseCodeIs204()
     {

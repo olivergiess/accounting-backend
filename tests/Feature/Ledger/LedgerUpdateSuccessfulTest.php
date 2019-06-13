@@ -15,11 +15,12 @@ class LedgerUpdateSuccessfulTest extends TestCase
 
     protected $newName = 'two';
 
-    private function feature()
+    private function feature($auth = TRUE)
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user);
+        if($auth)
+        	Passport::actingAs($user);
 
         $account = factory(Account::class)->create(['user_id' => $user->id]);
 
@@ -49,6 +50,13 @@ class LedgerUpdateSuccessfulTest extends TestCase
 
         return $data;
     }
+
+	public function testMustBeAuthenticated()
+	{
+		$response = $this->feature(FALSE);
+
+        $this->assertEquals(401, $response->getStatusCode());
+	}
 
     public function testResponseCodeIs200()
     {

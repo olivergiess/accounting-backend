@@ -8,10 +8,15 @@ use App\Repositories\PassportAuthRepository;
 
 class PassportAuthRepositoryTest extends TestCase
 {
-    public function testIsRegistered()
-    {
-        $repository = $this->app->make(AuthRepository::class);
+	protected $repository;
 
-        $this->assertInstanceOf(PassportAuthRepository::class, $repository);
+	public function additionalSetUp()
+	{
+		$this->repository = $this->app->make(AuthRepository::class);
+	}
+
+	public function testIsRegistered()
+    {
+        $this->assertInstanceOf(PassportAuthRepository::class, $this->repository);
     }
 }

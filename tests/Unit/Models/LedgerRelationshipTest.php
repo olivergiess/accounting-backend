@@ -11,7 +11,7 @@ class LedgerRelationshipTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testLedgerRelationshipAccountReturnsInstanceOfHasMany()
+    public function testAccountReturnsBelongsTo()
     {
         $ledger = factory(Ledger::class)->create();
 

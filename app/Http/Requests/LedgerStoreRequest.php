@@ -15,7 +15,7 @@ class LedgerStoreRequest extends FormRequest
     {
         return [
     		'name'      => 'required|string',
-			'account_id' => 'required|integer',
+			'account_id' => 'bail|required|integer|exists:accounts,id|can:App\Http\Resources\AccountResource,view',
 		];
     }
 }

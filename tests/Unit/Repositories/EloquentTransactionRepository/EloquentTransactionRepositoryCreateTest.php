@@ -4,28 +4,35 @@ namespace Tests\Unit\Repositories;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use App\Repositories\EloquentTransactionRepository;
 use App\Models\Ledger;
+use App\Repositories\EloquentTransactionRepository;
 use App\Http\Resources\TransactionResource;
 
 class EloquentTransactionRepositoryCreateTest extends TestCase
 {
 	use DatabaseMigrations;
 
+	protected $amount = 100;
+	protected $creditee;
+	protected $debitee;
+    protected $repository;
+
+    public function additionalSetUp()
+	{
+		list($this->creditee, $this->debitee) = factory(Ledger::class, 2)->create();
+
+		$this->repository = $this->app->build(EloquentTransactionRepository::class);
+	}
+
 	public function testSuccessful()
 	{
-		$from_ledger = factory(Ledger::class)->create();
-		$to_ledger   = factory(Ledger::class)->create();
-
 		$data = [
-			'amount' => 100,
-			'credit_ledger_id' => $to_ledger->id,
-			'debit_ledger_id'  => $from_ledger->id,
+			'amount' => $this->amount,
+			'credit_ledger_id' => $this->creditee->id,
+			'debit_ledger_id'  => $this->debitee->id,
 		];
 
-		$repository = $this->app->build(EloquentTransactionRepository::class);
-
-		$result = $repository->create($data);
+		$result = $this->repository->create($data);
 
 		$this->assertInstanceOf(TransactionResource::class, $result);
 	}

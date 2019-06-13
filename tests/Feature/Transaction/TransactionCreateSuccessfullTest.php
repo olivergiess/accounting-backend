@@ -17,11 +17,12 @@ class TransactionCreateSuccessfulTest extends TestCase
     protected $creditee;
     protected $debitee;
 
-    private function feature()
+    private function feature($auth = TRUE)
     {
         $user = factory(User::class)->create();
 
-        Passport::actingAs($user);
+        if($auth)
+        	Passport::actingAs($user);
 
         $account = factory(Account::class)->create(['user_id' => $user]);
 
@@ -34,6 +35,9 @@ class TransactionCreateSuccessfulTest extends TestCase
 		];
 
         $response = $this->post('/api/transactions', $payload);
+
+		$this->creditee->refresh();
+		$this->debitee->refresh();
 
         return $response;
     }
@@ -51,6 +55,12 @@ class TransactionCreateSuccessfulTest extends TestCase
         return $data;
     }
 
+	public function testMustBeAuthenticated()
+	{
+		$response = $this->feature(FALSE);
+
+        $this->assertEquals(401, $response->getStatusCode());
+	}
 
     public function testResponseCodeIs201()
     {
@@ -159,6 +169,13 @@ class TransactionCreateSuccessfulTest extends TestCase
         $this->assertEquals($this->creditee->id, $credit_ledger_id);
     }
 
+	public function testCrediteeBalanceHasBeenUpdatedCorrectly()
+	{
+		$this->feature();
+
+		$this->assertEquals($this->amount, $this->creditee->balance);
+	}
+
     public function testAttributesHasDebitLedgerId()
     {
         $data = $this->data();
@@ -178,4 +195,11 @@ class TransactionCreateSuccessfulTest extends TestCase
 
         $this->assertEquals($this->debitee->id, $debit_ledger_id);
     }
+
+	public function testDebiteeBalanceHasBeenUpdatedCorrectly()
+	{
+		$this->feature();
+
+		$this->assertEquals((-1 * $this->amount), $this->debitee->balance);
+	}
 }

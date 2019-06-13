@@ -17,9 +17,9 @@ class LedgerController extends Controller
 
 	public function store(LedgerStoreRequest $request)
     {
-    	$validated = $request->validated();
+    	$data = $request->validated();
 
-    	$ledger = $this->ledger->create($validated);
+    	$ledger = $this->ledger->create($data);
 
 		return $ledger;
     }
@@ -33,9 +33,9 @@ class LedgerController extends Controller
 
 	public function update(LedgerUpdateRequest $request, int $id)
 	{
-		$validated = $request->validated();
+		$data = $request->validated();
 
-		$ledger = $this->ledger->update($id, $validated);
+		$ledger = $this->ledger->update($id, $data);
 
 		return $ledger;
 	}

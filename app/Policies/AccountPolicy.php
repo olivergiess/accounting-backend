@@ -24,15 +24,18 @@ class AccountPolicy
 
     public function view(User $user, int $id)
 	{
-		$account = $this->repository->show($id);
-
-        return $user->id == $account->user_id;
+		return $this->owns($user, $id);
     }
 
     public function update(User $user, int $id)
     {
-    	$account = $this->repository->show($id);
+        return $this->owns($user, $id);
+    }
+
+    public function owns(User $user, int $id)
+	{
+		$account = $this->repository->show($id);
 
         return $user->id == $account->user_id;
-    }
+	}
 }

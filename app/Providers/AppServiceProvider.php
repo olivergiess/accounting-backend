@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Carbon\Carbon;
+use App\Rules\Can;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+        Validator::extend('can', function ($attribute, $value, $parameters, $validator) {
+            $can = new Can($parameters[0], $parameters[1]);
+
+            return $can->passes($attribute, $value);
+        });
     }
 }
