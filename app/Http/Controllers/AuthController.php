@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
-	private const REFRESH_TOKEN = 'refreshToken';
-
 	protected $user;
 
 	public function __construct(AuthRepository $user)

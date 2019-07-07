@@ -20,6 +20,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/accounts/{id}', 'AccountController@show')->middleware('can:view,App\Http\Resources\AccountResource,id');
     Route::put('/accounts/{id}', 'AccountController@update')->middleware('can:update,App\Http\Resources\AccountResource,id');
 
+    Route::get('/accounts/{id}/ledgers', 'Account\LedgerController@all');
+
     Route::post('/ledgers', 'LedgerController@store')->middleware('can:store,App\Http\Resources\LedgerResource');
     Route::get('/ledgers/{id}', 'LedgerController@show')->middleware('can:view,App\Http\Resources\LedgerResource,id');
     Route::put('/ledgers/{id}', 'LedgerController@update')->middleware('can:update,App\Http\Resources\LedgerResource,id');
@@ -27,6 +29,4 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/transactions', 'TransactionController@store')->middleware('can:store,App\Http\Resources\TransactionResource');
     Route::get('/transactions/{id}', 'TransactionController@show')->middleware('can:view,App\Http\Resources\TransactionResource,id');
     Route::delete('/transactions/{id}', 'TransactionController@delete')->middleware('can:delete,App\Http\Resources\TransactionResource,id');
-
-    Route::fallback(function() {});
 });
