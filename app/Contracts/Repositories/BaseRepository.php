@@ -4,6 +4,8 @@ namespace App\Contracts\Repositories;
 
 interface BaseRepository
 {
+	public function expand(string $expansions);
+
     public function create(array $data);
 
     public function show(int $id);

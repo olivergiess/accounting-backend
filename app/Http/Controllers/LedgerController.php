@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Repositories\LedgerRepository;
 use App\Http\Requests\LedgerStoreRequest;
 use App\Http\Requests\LedgerUpdateRequest;
+use Illuminate\Http\Request;
 
 class LedgerController extends Controller
 {
@@ -24,8 +25,11 @@ class LedgerController extends Controller
 		return $ledger;
     }
 
-	public function show(int $id)
+	public function show(int $id, Request $request)
 	{
+		if($expansions = $request->input('expand'))
+			$this->account->expand($expansions);
+
 		$ledger = $this->ledger->show($id);
 
 		return $ledger;

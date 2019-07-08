@@ -9,11 +9,18 @@ abstract class EloquentBaseRepository implements BaseRepository
 	protected $resource;
     protected $model;
 
+    protected $expansions = [];
+
     public function __construct($resource, $model)
     {
     	$this->resource = $resource;
         $this->model    = $model;
     }
+
+    public function expand(string $expansions)
+	{
+		$this->expansions = explode(',', $expansions);
+	}
 
     public function create(array $data)
     {
@@ -28,7 +35,9 @@ abstract class EloquentBaseRepository implements BaseRepository
 
     public function show(int $id)
     {
-        $model = $this->model::findOrFail($id);
+		$model = $this->model::findOrFail($id);
+
+		$model->load($this->expansions);
 
         $result = $this->resource->make($model);
 

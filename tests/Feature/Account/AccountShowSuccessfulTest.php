@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Account;
 
+use App\Models\Ledger;
+use App\Models\Transaction;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
@@ -14,7 +16,7 @@ class AccountShowSuccessfulTest extends TestCase
 
 	protected $name = 'test';
 
-	private function feature($auth = TRUE)
+	private function feature($auth = TRUE, $get = '')
 	{
 		$user = factory(User::class)->create();
 
@@ -26,7 +28,16 @@ class AccountShowSuccessfulTest extends TestCase
 			'user_id' => $user->id
 		]);
 
-		$response = $this->get('/api/accounts/'.$account->id);
+		list($creditee, $debitee) = factory(Ledger::class, 2)->create([
+			'account_id' => $account->id,
+		]);
+
+		$transactions = factory(Transaction::class, 50)->create([
+			'credit_ledger_id' => $creditee->id,
+			'debit_ledger_id' => $debitee->id,
+		]);
+
+		$response = $this->get('/api/accounts/'.$account->id.$get);
 
 		return $response;
 	}
@@ -129,5 +140,14 @@ class AccountShowSuccessfulTest extends TestCase
 		$name = $attributes->name;
 
         $this->assertEquals($this->name, $name);
+	}
+
+	public function testExpandLedgers()
+	{
+		$data = $this->feature(TRUE, '?expand=ledgers.creditors.debitee,asdasdas')->getContent();
+
+		dd($data);
+
+        $this->assertEquals(TRUE, TRUE);
 	}
 }

@@ -10,10 +10,18 @@ class Ledger extends Base
 		'account_id',
 	];
 
-	protected $with = 'account';
-
 	public function account()
 	{
 		return $this->belongsTo(Account::class);
+	}
+
+	public function creditors()
+	{
+		return $this->hasMany(Transaction::class, 'credit_ledger_id');
+	}
+
+	public function debitors()
+	{
+		return $this->hasMany(Transaction::class, 'debit_ledger_id');
 	}
 }

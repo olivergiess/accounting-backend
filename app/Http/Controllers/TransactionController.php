@@ -6,6 +6,7 @@ use App\Contracts\Repositories\LedgerRepository;
 use App\Contracts\Repositories\TransactionRepository;
 use App\Libraries\Ledger;
 use App\Http\Requests\TransactionStoreRequest;
+use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -44,8 +45,11 @@ class TransactionController extends Controller
 		return $transaction;
     }
 
-    public function show(int $id)
+    public function show(int $id, Request $request)
     {
+    	if($expansions = $request->input('expand'))
+			$this->account->expand($expansions);
+
         $transaction = $this->transaction->show($id);
 
         return $transaction;

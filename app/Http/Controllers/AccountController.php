@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Repositories\AccountRepository;
 use App\Http\Requests\AccountStoreRequest;
 use App\Http\Requests\AccountUpdateRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
@@ -27,8 +27,11 @@ class AccountController extends Controller
 		return $account;
     }
 
-	public function show(int $id)
+	public function show(int $id, Request $request)
 	{
+		if($expansions = $request->input('expand'))
+			$this->account->expand($expansions);
+
 		$account = $this->account->show($id);
 
 		return $account;

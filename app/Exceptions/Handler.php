@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
@@ -61,7 +62,10 @@ class Handler extends ExceptionHandler
      */
     protected function prepareException(Exception $e)
     {
-    	if ($e instanceof AuthorizationException)
+    	if (
+    		$e instanceof AuthorizationException ||
+			$e instanceof RelationNotFoundException
+		)
     	{
             $e = new AccessDeniedHttpException(404, 'Not Found', $e);
         }
