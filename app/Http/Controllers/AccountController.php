@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Traits\Expandable;
+
 use App\Contracts\Repositories\AccountRepository;
 use App\Http\Requests\AccountStoreRequest;
 use App\Http\Requests\AccountUpdateRequest;
@@ -9,11 +11,15 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
+	use Expandable;
+
 	protected $account;
 
-	public function __construct(AccountRepository $account)
+	public function __construct(AccountRepository $account, Request $request)
 	{
 		$this->account = $account;
+
+		$this->expand($request, $this->account);
 	}
 
 	public function store(AccountStoreRequest $request)
@@ -27,11 +33,8 @@ class AccountController extends Controller
 		return $account;
     }
 
-	public function show(int $id, Request $request)
+	public function show(int $id)
 	{
-		if($expansions = $request->input('expand'))
-			$this->account->expand($expansions);
-
 		$account = $this->account->show($id);
 
 		return $account;

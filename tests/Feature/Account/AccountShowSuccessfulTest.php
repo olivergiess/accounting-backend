@@ -141,13 +141,4 @@ class AccountShowSuccessfulTest extends TestCase
 
         $this->assertEquals($this->name, $name);
 	}
-
-	public function testExpandLedgers()
-	{
-		$data = $this->feature(TRUE, '?expand=ledgers.creditors.debitee,asdasdas')->getContent();
-
-		dd($data);
-
-        $this->assertEquals(TRUE, TRUE);
-	}
 }

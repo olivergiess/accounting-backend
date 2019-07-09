@@ -11,31 +11,33 @@ class LedgerLibraryTransferTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testLedgerLibraryTransferUpdatesCreditLedgerBalanceCorrectly()
+    protected $from_ledger;
+    protected $to_ledger;
+    protected $library;
+
+    public function additionalSetUp()
+	{
+		$this->from_ledger = factory(LedgerModel::class)->create();
+        $this->to_ledger   = factory(LedgerModel::class)->create();
+
+        $this->library = $this->app->build(Ledger::class);
+	}
+
+	public function testLedgerLibraryTransferUpdatesCreditLedgerBalanceCorrectly()
     {
-        $from_ledger = factory(LedgerModel::class)->create();
-        $to_ledger   = factory(LedgerModel::class)->create();
+        $this->library->transfer(100, $this->from_ledger->id, $this->to_ledger->id);
 
-        $ledger = $this->app->build(Ledger::class);
+        $this->to_ledger->refresh();
 
-        $ledger->transfer(100, $from_ledger->id, $to_ledger->id);
-
-        $to_ledger->refresh();
-
-        $this->assertEquals(100, $to_ledger->balance);
+        $this->assertEquals(100, $this->to_ledger->balance);
     }
 
     public function testLedgerLibraryTransferUpdatesDebitLedgerBalanceCorrectly()
     {
-        $from_ledger = factory(LedgerModel::class)->create();
-        $to_ledger   = factory(LedgerModel::class)->create();
+        $this->library->transfer(100, $this->from_ledger->id, $this->to_ledger->id);
 
-        $ledger = $this->app->build(Ledger::class);
+        $this->from_ledger->refresh();
 
-        $ledger->transfer(100, $from_ledger->id, $to_ledger->id);
-
-        $from_ledger->refresh();
-
-        $this->assertEquals(-100, $from_ledger->balance);
+        $this->assertEquals(-100, $this->from_ledger->balance);
     }
 }

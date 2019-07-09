@@ -4,33 +4,33 @@ namespace Tests\Unit\Resources;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use App\Models\Ledger;
-use App\Http\Resources\LedgerCollection;
+use App\Models\Transaction;
+use App\Http\Resources\TransactionCollection;
 use Illuminate\Support\Collection;
-use App\Http\Resources\LedgerResource;
+use App\Http\Resources\TransactionResource;
 
-class LedgerCollectionTest extends TestCase
+class TransactionCollectionTest extends TestCase
 {
 	use DatabaseMigrations;
 
-	protected $ledger;
+	protected $transaction;
 	protected $collection;
 
 	public function additionalSetUp()
 	{
-		$this->ledger = factory(Ledger::class, 1)->create();
+		$this->transaction = factory(Transaction::class, 1)->create();
 
-        $this->collection = new LedgerCollection($this->ledger);
+        $this->collection = new TransactionCollection($this->transaction);
 	}
 
-    public function testCanBeInstantiated()
+	public function testCanBeInstantiated()
     {
-        $this->assertInstanceOf(LedgerCollection::class, $this->collection);
+        $this->assertInstanceOf(TransactionCollection::class, $this->collection);
     }
 
     public function testResolveIsArray()
     {
-       	$result = $this->collection->resolve();
+        $result = $this->collection->resolve();
 
         $this->assertIsArray($result);
     }
@@ -51,7 +51,7 @@ class LedgerCollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, $data);
     }
 
-    public function testResolveDataCollectionIsLedgerResources()
+    public function testResolveDataCollectionIsTransactionResources()
     {
         $result = $this->collection->resolve();
 
@@ -59,6 +59,6 @@ class LedgerCollectionTest extends TestCase
 
         $first = $data->first();
 
-        $this->assertInstanceOf(LedgerResource::class, $first);
+        $this->assertInstanceOf(TransactionResource::class, $first);
     }
 }

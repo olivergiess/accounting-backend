@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Repositories\LedgerRepository;
+use App\Http\Controllers\Traits\Expandable;
 use App\Http\Requests\LedgerStoreRequest;
 use App\Http\Requests\LedgerUpdateRequest;
 use Illuminate\Http\Request;
 
 class LedgerController extends Controller
 {
+	use Expandable;
+
 	protected $ledger;
 
 	public function __construct(LedgerRepository $ledger)
@@ -27,8 +30,7 @@ class LedgerController extends Controller
 
 	public function show(int $id, Request $request)
 	{
-		if($expansions = $request->input('expand'))
-			$this->account->expand($expansions);
+		$this->expand($request, $this->ledger);
 
 		$ledger = $this->ledger->show($id);
 

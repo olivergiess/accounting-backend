@@ -12,6 +12,7 @@ class LedgerResource extends BaseResource
 	}
 
 	protected $relations = [
+		'account' => AccountResource::class,
 		'creditors' => TransactionCollection::class,
 		'debitors' => TransactionCollection::class,
 	];

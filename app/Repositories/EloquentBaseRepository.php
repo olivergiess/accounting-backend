@@ -28,6 +28,8 @@ abstract class EloquentBaseRepository implements BaseRepository
 
         $model->refresh();
 
+        $model->load($this->expansions);
+
         $result = $this->resource->make($model);
 
         return $result;
@@ -35,9 +37,7 @@ abstract class EloquentBaseRepository implements BaseRepository
 
     public function show(int $id)
     {
-		$model = $this->model::findOrFail($id);
-
-		$model->load($this->expansions);
+		$model = $this->model::with($this->expansions)->findOrFail($id);
 
         $result = $this->resource->make($model);
 
@@ -46,7 +46,7 @@ abstract class EloquentBaseRepository implements BaseRepository
 
     public function update(int $id, array $data)
     {
-        $model = $this->model::findOrFail($id);
+        $model = $this->model::with($this->expansions)->findOrFail($id);
 
         $model->update($data);
 

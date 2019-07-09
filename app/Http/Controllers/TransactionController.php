@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Repositories\LedgerRepository;
 use App\Contracts\Repositories\TransactionRepository;
+use App\Http\Controllers\Traits\Expandable;
 use App\Libraries\Ledger;
 use App\Http\Requests\TransactionStoreRequest;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+	use Expandable;
+
     protected $transaction;
     protected $ledgerRepository;
     protected $ledger;
 
-    public function __construct(TransactionRepository $transaction, LedgerRepository $ledgerRepository, Ledger $ledger)
-    {
+    public function __construct(TransactionRepository $transaction,
+								LedgerRepository $ledgerRepository,
+								Ledger $ledger)
+	{
         $this->transaction = $transaction;
         $this->ledgerRepository = $ledgerRepository;
 		$this->ledger     = $ledger;
@@ -40,15 +45,14 @@ class TransactionController extends Controller
 
 		$transaction = $this->transaction->create($data);
 
-        $this->ledger->transfer($request->amount, $transaction->debit_ledger_id, $transaction->credit_ledger_id);
+        $this->ledger->transfer($transaction->amount, $transaction->debit_ledger_id, $transaction->credit_ledger_id);
 
 		return $transaction;
     }
 
     public function show(int $id, Request $request)
     {
-    	if($expansions = $request->input('expand'))
-			$this->account->expand($expansions);
+    	$this->expand($request, $this->transaction);
 
         $transaction = $this->transaction->show($id);
 
