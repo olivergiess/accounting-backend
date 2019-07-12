@@ -3,14 +3,16 @@
 namespace App\Repositories;
 
 use App\Contracts\Repositories\LedgerRepository;
-use App\Http\Resources\LedgerResource;
+
 use App\Models\Ledger;
+use App\Http\Resources\LedgerResource;
+use App\Http\Resources\LedgerCollection;
 
 class EloquentLedgerRepository extends EloquentBaseRepository implements LedgerRepository
 {
-    public function __construct(LedgerResource $resource, Ledger $model)
+    public function __construct(Ledger $model, LedgerResource $resource, LedgerCollection $collection)
     {
-        parent::__construct($resource, $model);
+        parent::__construct($model, $resource, $collection);
     }
 
     public function incrementBalance(int $ledger_id, int $amount)

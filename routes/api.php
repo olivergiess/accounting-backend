@@ -16,11 +16,10 @@ Route::post('/login/refresh', 'AuthController@refresh');
 Route::post('/logout', 'AuthController@logout');
 
 Route::middleware('auth:api')->group(function () {
+	Route::get('/accounts', 'AccountController@all')->middleware('can:all,App\Http\Resources\AccountResource');
     Route::post('/accounts', 'AccountController@store')->middleware('can:store,App\Http\Resources\AccountResource');
     Route::get('/accounts/{id}', 'AccountController@show')->middleware('can:view,App\Http\Resources\AccountResource,id');
     Route::put('/accounts/{id}', 'AccountController@update')->middleware('can:update,App\Http\Resources\AccountResource,id');
-
-    Route::get('/accounts/{id}/ledgers', 'Account\LedgerController@all');
 
     Route::post('/ledgers', 'LedgerController@store')->middleware('can:store,App\Http\Resources\LedgerResource');
     Route::get('/ledgers/{id}', 'LedgerController@show')->middleware('can:view,App\Http\Resources\LedgerResource,id');

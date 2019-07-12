@@ -3,13 +3,15 @@
 namespace App\Repositories;
 
 use App\Contracts\Repositories\AccountRepository;
-use App\Http\Resources\AccountResource;
+
 use App\Models\Account;
+use App\Http\Resources\AccountResource;
+use App\Http\Resources\AccountCollection;
 
 class EloquentAccountRepository extends EloquentBaseRepository implements AccountRepository
 {
-    public function __construct(AccountResource $resource, Account $model)
+    public function __construct(Account $model, AccountResource $resource, AccountCollection $collection)
     {
-        parent::__construct($resource, $model);
+        parent::__construct($model, $resource, $collection);
     }
 }

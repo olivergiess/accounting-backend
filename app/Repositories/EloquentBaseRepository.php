@@ -6,20 +6,31 @@ use App\Contracts\Repositories\BaseRepository;
 
 abstract class EloquentBaseRepository implements BaseRepository
 {
+	protected $model;
 	protected $resource;
-    protected $model;
+	protected $collection;
 
     protected $expansions = [];
 
-    public function __construct($resource, $model)
+    public function __construct($model, $resource, $collection)
     {
-    	$this->resource = $resource;
-        $this->model    = $model;
+		$this->model      = $model;
+		$this->resource   = $resource;
+		$this->collection = $collection;
     }
 
     public function expand(string $expansions)
 	{
 		$this->expansions = explode(',', $expansions);
+	}
+
+	public function all(array $where = [])
+	{
+		$models = $this->model::where($where)->get();
+
+		$result = $this->collection->make($models);
+
+		return $result;
 	}
 
     public function create(array $data)

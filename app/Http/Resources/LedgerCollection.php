@@ -2,16 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
-
-class LedgerCollection extends ResourceCollection
+class LedgerCollection extends BaseCollection
 {
     public $collects = 'App\Http\Resources\LedgerResource';
-
-    public function toArray($request)
-    {
-        return [
-            'data' => $this->collection,
-        ];
-    }
 }

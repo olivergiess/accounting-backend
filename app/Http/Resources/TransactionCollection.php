@@ -2,16 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
-
-class TransactionCollection extends ResourceCollection
+class TransactionCollection extends BaseCollection
 {
     public $collects = 'App\Http\Resources\TransactionResource';
-
-    public function toArray($request)
-    {
-        return [
-            'data' => $this->collection,
-        ];
-    }
 }

@@ -17,6 +17,11 @@ class AccountPolicy
 		$this->repository = $repository;
 	}
 
+	public function all(User $user)
+    {
+        return true;
+    }
+
 	public function store(User $user)
     {
         return true;

@@ -6,6 +6,8 @@ interface BaseRepository
 {
 	public function expand(string $expansions);
 
+	public function all(array $where);
+
     public function create(array $data);
 
     public function show(int $id);

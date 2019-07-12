@@ -22,6 +22,15 @@ class AccountController extends Controller
 		$this->expand($request, $this->account);
 	}
 
+	public function all(Request $request)
+	{
+		$user_id = $request->user()->id;
+
+		$accounts = $this->account->all(['user_id' => $user_id]);
+
+		return $accounts;
+	}
+
 	public function store(AccountStoreRequest $request)
 	{
     	$data = $request->validated();

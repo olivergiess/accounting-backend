@@ -3,13 +3,15 @@
 namespace App\Repositories;
 
 use App\Contracts\Repositories\TransactionRepository;
-use App\Http\Resources\TransactionResource;
+
 use App\Models\Transaction;
+use App\Http\Resources\TransactionResource;
+use App\Http\Resources\TransactionCollection;
 
 class EloquentTransactionRepository extends EloquentBaseRepository implements TransactionRepository
 {
-    public function __construct(TransactionResource $resource, Transaction $model)
+    public function __construct(Transaction $model, TransactionResource $resource, TransactionCollection $collection)
     {
-        parent::__construct($resource, $model);
+        parent::__construct($model, $resource, $collection);
     }
 }
