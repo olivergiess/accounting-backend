@@ -7,7 +7,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Account;
-use App\Repositories\EloquentAccountRepository;
+use App\Account\Repositories\EloquentAccountRepository;
 
 class EloquentAccountRepositoryExpandTest extends TestCase
 {

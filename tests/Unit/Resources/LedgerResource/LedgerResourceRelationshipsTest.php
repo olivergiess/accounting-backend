@@ -2,12 +2,13 @@
 
 namespace Tests\Unit\Resources;
 
-use App\Http\Resources\AccountResource;
-use App\Http\Resources\TransactionCollection;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 use App\Models\Ledger;
-use App\Http\Resources\LedgerResource;
+use App\Ledger\Http\Resources\LedgerResource;
+use App\Account\Http\Resources\AccountResource;
+use App\Transaction\Http\Resources\TransactionCollection;
 
 class LedgerResourceRelationshipsTest extends TestCase
 {

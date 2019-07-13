@@ -4,7 +4,8 @@ namespace Tests\Unit\Resources;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use App\Http\Resources\TokenResource;
+
+use App\Auth\Http\Resources\TokenResource;
 
 class TokenResourceToArrayTest extends TestCase
 {

@@ -4,10 +4,11 @@ namespace Tests\Unit\Resources;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 use App\Models\Transaction;
-use App\Http\Resources\TransactionCollection;
+use App\Transaction\Http\Resources\TransactionCollection;
+use App\Transaction\Http\Resources\TransactionResource;
 use Illuminate\Support\Collection;
-use App\Http\Resources\TransactionResource;
 
 class TransactionCollectionTest extends TestCase
 {

@@ -3,8 +3,8 @@
 namespace Tests\Unit\Repositories;
 
 use Tests\TestCase;
-use App\Contracts\Repositories\AccountRepository;
-use App\Repositories\EloquentAccountRepository;
+use App\Account\Contracts\Repositories\AccountRepository;
+use App\Account\Repositories\EloquentAccountRepository;
 
 class EloquentAccountRepositoryTest extends TestCase
 {

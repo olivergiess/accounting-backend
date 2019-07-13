@@ -4,8 +4,9 @@ namespace Tests\Unit\Resources;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 use App\Models\Ledger;
-use App\Http\Resources\LedgerResource;
+use App\Ledger\Http\Resources\LedgerResource;
 
 class LedgerResourceTest extends TestCase
 {

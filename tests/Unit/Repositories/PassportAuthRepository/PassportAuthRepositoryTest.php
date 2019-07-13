@@ -3,8 +3,9 @@
 namespace Tests\Unit\Repositories;
 
 use Tests\TestCase;
-use App\Contracts\Repositories\AuthRepository;
-use App\Repositories\PassportAuthRepository;
+
+use App\Auth\Contracts\Repositories\AuthRepository;
+use App\Auth\Repositories\PassportAuthRepository;
 
 class PassportAuthRepositoryTest extends TestCase
 {

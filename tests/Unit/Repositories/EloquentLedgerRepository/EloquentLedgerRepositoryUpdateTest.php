@@ -5,12 +5,10 @@ namespace Tests\Unit\Repositories;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-use App\Models\User;
 use App\Models\Account;
 use App\Models\Ledger;
-use Laravel\Passport\Passport;
-use App\Repositories\EloquentLedgerRepository;
-use App\Http\Resources\LedgerResource;
+use App\Ledger\Repositories\EloquentLedgerRepository;
+use App\Ledger\Http\Resources\LedgerResource;
 
 class EloquentLedgerRepositoryUpdateTest extends TestCase
 {

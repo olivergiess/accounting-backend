@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\Transaction;
 use App\Models\Ledger;
-use App\Repositories\EloquentTransactionRepository;
-use App\Http\Resources\TransactionResource;
+use App\Transaction\Repositories\EloquentTransactionRepository;
+use App\Transaction\Http\Resources\TransactionResource;
 
 class EloquentTransactionRepositoryUpdateTest extends TestCase
 {

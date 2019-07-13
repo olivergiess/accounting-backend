@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Ledger;
-use App\Repositories\EloquentLedgerRepository;
+use App\Ledger\Repositories\EloquentLedgerRepository;
 
 class EloquentLedgerRepositoryIncrementBalanceTest extends TestCase
 {

@@ -4,10 +4,11 @@ namespace Tests\Unit\Resources;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 use App\Models\Account;
-use App\Http\Resources\AccountCollection;
+use App\Account\Http\Resources\AccountCollection;
+use App\Account\Http\Resources\AccountResource;
 use Illuminate\Support\Collection;
-use App\Http\Resources\AccountResource;
 
 class AccountCollectionTest extends TestCase
 {

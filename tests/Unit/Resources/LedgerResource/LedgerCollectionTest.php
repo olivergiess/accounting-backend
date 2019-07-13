@@ -4,10 +4,11 @@ namespace Tests\Unit\Resources;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 use App\Models\Ledger;
-use App\Http\Resources\LedgerCollection;
+use App\Ledger\Http\Resources\LedgerResource;
+use App\Ledger\Http\Resources\LedgerCollection;
 use Illuminate\Support\Collection;
-use App\Http\Resources\LedgerResource;
 
 class LedgerCollectionTest extends TestCase
 {

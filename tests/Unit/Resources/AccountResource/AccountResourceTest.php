@@ -4,8 +4,9 @@ namespace Tests\Unit\Resources;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 use App\Models\Account;
-use App\Http\Resources\AccountResource;
+use App\Account\Http\Resources\AccountResource;
 
 class AccountResourceTest extends TestCase
 {

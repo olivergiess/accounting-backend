@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Resources;
 
-use App\Http\Resources\LedgerCollection;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+
+use App\Account\Http\Resources\AccountResource;
+use App\Ledger\Http\Resources\LedgerCollection;
 use App\Models\Account;
-use App\Models\Ledger;
-use App\Http\Resources\AccountResource;
 
 class AccountResourceRelationshipsTest extends TestCase
 {

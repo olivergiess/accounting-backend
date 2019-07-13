@@ -14,9 +14,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        \App\Http\Resources\AccountResource::class => \App\Policies\AccountPolicy::class,
-		\App\Http\Resources\LedgerResource::class => \App\Policies\LedgerPolicy::class,
-		\App\Http\Resources\TransactionResource::class => \App\Policies\TransactionPolicy::class,
+        \App\Account\Http\Resources\AccountResource::class => \App\Account\Policies\AccountPolicy::class,
+		\App\Ledger\Http\Resources\LedgerResource::class => \App\Ledger\Policies\LedgerPolicy::class,
+		\App\Transaction\Http\Resources\TransactionResource::class => \App\Transaction\Policies\TransactionPolicy::class,
     ];
 
     /**

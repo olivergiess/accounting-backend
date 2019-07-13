@@ -3,8 +3,9 @@
 namespace Tests\Unit\Repositories;
 
 use Tests\TestCase;
-use App\Contracts\Repositories\TransactionRepository;
-use App\Repositories\EloquentTransactionRepository;
+
+use App\Transaction\Contracts\Repositories\TransactionRepository;
+use App\Transaction\Repositories\EloquentTransactionRepository;
 
 class EloquentTransactionRepositoryTest extends TestCase
 {

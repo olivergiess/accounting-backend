@@ -4,8 +4,9 @@ namespace Tests\Unit\Resources;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 use App\Models\Transaction;
-use App\Http\Resources\TransactionResource;
+use App\Transaction\Http\Resources\TransactionResource;
 
 class TransactionResourceResolveTest extends TestCase
 {

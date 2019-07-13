@@ -4,6 +4,7 @@ namespace Tests\Feature\Account;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 use App\Models\Account;
 
 class UnauthenticatedTest extends TestCase

@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Repositories;
 
-use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Ledger;
-use App\Repositories\EloquentLedgerRepository;
+use App\Ledger\Repositories\EloquentLedgerRepository;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 
 class EloquentLedgerRepositoryExpandTest extends TestCase
 {

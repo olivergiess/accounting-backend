@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Rules\Can;
+use App\Http\Rules\Can;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,10 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    	$this->app->bind('App\Contracts\Repositories\AuthRepository', \App\Repositories\PassportAuthRepository::class);
-        $this->app->bind('App\Contracts\Repositories\AccountRepository', \App\Repositories\EloquentAccountRepository::class);
-		$this->app->bind('App\Contracts\Repositories\LedgerRepository', \App\Repositories\EloquentLedgerRepository::class);
-		$this->app->bind('App\Contracts\Repositories\TransactionRepository', \App\Repositories\EloquentTransactionRepository::class);
+    	$this->app->bind('App\Auth\Contracts\Repositories\AuthRepository', \App\Auth\Repositories\PassportAuthRepository::class);
+        $this->app->bind('App\Account\Contracts\Repositories\AccountRepository', \App\Account\Repositories\EloquentAccountRepository::class);
+		$this->app->bind('App\Ledger\Contracts\Repositories\LedgerRepository', \App\Ledger\Repositories\EloquentLedgerRepository::class);
+		$this->app->bind('App\Transaction\Contracts\Repositories\TransactionRepository', \App\Transaction\Repositories\EloquentTransactionRepository::class);
     }
 
     /**
