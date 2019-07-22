@@ -26,7 +26,7 @@ abstract class EloquentBaseRepository implements BaseRepository
 
 	public function all(array $where = [])
 	{
-		$models = $this->model::where($where)->get();
+		$models = $this->model::where($where)->with($this->expansions)->get();
 
 		$result = $this->collection->make($models);
 
