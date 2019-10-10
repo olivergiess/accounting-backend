@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Account;
-use App\Account\Http\Resources\AccountCollection;
-use App\Account\Http\Resources\AccountResource;
+use App\Components\Account\Http\Resources\AccountCollection;
+use App\Components\Account\Http\Resources\AccountResource;
 use Illuminate\Support\Collection;
 
 class AccountCollectionTest extends TestCase

@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Ledger;
-use App\Ledger\Http\Resources\LedgerResource;
-use App\Ledger\Http\Resources\LedgerCollection;
+use App\Components\Ledger\Http\Resources\LedgerResource;
+use App\Components\Ledger\Http\Resources\LedgerCollection;
 use Illuminate\Support\Collection;
 
 class LedgerCollectionTest extends TestCase

@@ -7,8 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\User;
 use App\Models\Account;
-use App\Account\Repositories\EloquentAccountRepository;
-use App\Account\Http\Resources\AccountResource;
+use App\Components\Account\Repositories\EloquentAccountRepository;
+use App\Components\Account\Http\Resources\AccountResource;
 
 class EloquentAccountRepositoryUpdateTest extends TestCase
 {

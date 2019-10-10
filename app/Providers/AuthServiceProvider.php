@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
+use Carbon\Carbon;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -14,9 +15,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        \App\Account\Http\Resources\AccountResource::class => \App\Account\Policies\AccountPolicy::class,
-		\App\Ledger\Http\Resources\LedgerResource::class => \App\Ledger\Policies\LedgerPolicy::class,
-		\App\Transaction\Http\Resources\TransactionResource::class => \App\Transaction\Policies\TransactionPolicy::class,
+        \App\Components\Account\Http\Resources\AccountResource::class => \App\Components\Account\Policies\AccountPolicy::class,
+		\App\Components\Ledger\Http\Resources\LedgerResource::class => \App\Components\Ledger\Policies\LedgerPolicy::class,
+		\App\Components\Transaction\Http\Resources\TransactionResource::class => \App\Components\Transaction\Policies\TransactionPolicy::class,
     ];
 
     /**

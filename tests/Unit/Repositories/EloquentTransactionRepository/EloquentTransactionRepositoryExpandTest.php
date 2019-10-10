@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Transaction;
-use App\Transaction\Repositories\EloquentTransactionRepository;
+use App\Components\Transaction\Repositories\EloquentTransactionRepository;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 
 class EloquentTransactionRepositoryExpandTest extends TestCase

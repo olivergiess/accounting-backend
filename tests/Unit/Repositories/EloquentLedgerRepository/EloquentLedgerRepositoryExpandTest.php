@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Ledger;
-use App\Ledger\Repositories\EloquentLedgerRepository;
+use App\Components\Ledger\Repositories\EloquentLedgerRepository;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 
 class EloquentLedgerRepositoryExpandTest extends TestCase

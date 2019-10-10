@@ -2,7 +2,7 @@
 
 namespace App\Libraries;
 
-use App\Ledger\Contracts\Repositories\LedgerRepository;
+use App\Components\Ledger\Contracts\Repositories\LedgerRepository;
 
 class Ledger
 {

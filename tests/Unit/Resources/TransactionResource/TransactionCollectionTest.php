@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Transaction;
-use App\Transaction\Http\Resources\TransactionCollection;
-use App\Transaction\Http\Resources\TransactionResource;
+use App\Components\Transaction\Http\Resources\TransactionCollection;
+use App\Components\Transaction\Http\Resources\TransactionResource;
 use Illuminate\Support\Collection;
 
 class TransactionCollectionTest extends TestCase

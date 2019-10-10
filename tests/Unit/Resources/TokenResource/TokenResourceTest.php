@@ -5,7 +5,7 @@ namespace Tests\Unit\Resources;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-use App\Auth\Http\Resources\TokenResource;
+use App\Components\Auth\Http\Resources\TokenResource;
 
 class TokenResourceTest extends TestCase
 {

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Rules\Can;
+use App\Rules\Can;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,10 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    	$this->app->bind('App\Auth\Contracts\Repositories\AuthRepository', \App\Auth\Repositories\PassportAuthRepository::class);
-        $this->app->bind('App\Account\Contracts\Repositories\AccountRepository', \App\Account\Repositories\EloquentAccountRepository::class);
-		$this->app->bind('App\Ledger\Contracts\Repositories\LedgerRepository', \App\Ledger\Repositories\EloquentLedgerRepository::class);
-		$this->app->bind('App\Transaction\Contracts\Repositories\TransactionRepository', \App\Transaction\Repositories\EloquentTransactionRepository::class);
+    	$this->app->bind('App\Components\Auth\Contracts\Repositories\AuthRepository', \App\Components\Auth\Repositories\PassportAuthRepository::class);
+        $this->app->bind('App\Components\Account\Contracts\Repositories\AccountRepository', \App\Components\Account\Repositories\EloquentAccountRepository::class);
+		$this->app->bind('App\Components\Ledger\Contracts\Repositories\LedgerRepository', \App\Components\Ledger\Repositories\EloquentLedgerRepository::class);
+		$this->app->bind('App\Components\Transaction\Contracts\Repositories\TransactionRepository', \App\Components\Transaction\Repositories\EloquentTransactionRepository::class);
     }
 
     /**
@@ -28,7 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         Validator::extend('can', function ($attribute, $value, $parameters, $validator) {
             $can = new Can($parameters[0], $parameters[1]);
 

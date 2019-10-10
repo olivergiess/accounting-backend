@@ -3,8 +3,8 @@
 namespace Tests\Unit\Repositories;
 
 use Tests\TestCase;
-use App\Ledger\Contracts\Repositories\LedgerRepository;
-use App\Ledger\Repositories\EloquentLedgerRepository;
+use App\Components\Ledger\Contracts\Repositories\LedgerRepository;
+use App\Components\Ledger\Repositories\EloquentLedgerRepository;
 
 class EloquentLedgerRepositoryTest extends TestCase
 {

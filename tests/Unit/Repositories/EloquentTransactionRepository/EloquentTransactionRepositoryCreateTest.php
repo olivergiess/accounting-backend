@@ -5,8 +5,8 @@ namespace Tests\Unit\Repositories;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\Ledger;
-use App\Transaction\Repositories\EloquentTransactionRepository;
-use App\Transaction\Http\Resources\TransactionResource;
+use App\Components\Transaction\Repositories\EloquentTransactionRepository;
+use App\Components\Transaction\Http\Resources\TransactionResource;
 
 class EloquentTransactionRepositoryCreateTest extends TestCase
 {

@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Account;
-use App\Account\Repositories\EloquentAccountRepository;
-use App\Account\Http\Resources\AccountCollection;
+use App\Components\Account\Repositories\EloquentAccountRepository;
+use App\Components\Account\Http\Resources\AccountCollection;
 
 class EloquentAccountRepositoryAllTest extends TestCase
 {

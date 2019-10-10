@@ -5,8 +5,8 @@ namespace Tests\Unit\Resources;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-use App\Account\Http\Resources\AccountResource;
-use App\Ledger\Http\Resources\LedgerCollection;
+use App\Components\Account\Http\Resources\AccountResource;
+use App\Components\Ledger\Http\Resources\LedgerCollection;
 use App\Models\Account;
 
 class AccountResourceRelationshipsTest extends TestCase

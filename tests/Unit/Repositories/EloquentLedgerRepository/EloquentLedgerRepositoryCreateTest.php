@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Account;
-use App\Ledger\Repositories\EloquentLedgerRepository;
-use App\Ledger\Http\Resources\LedgerResource;
+use App\Components\Ledger\Repositories\EloquentLedgerRepository;
+use App\Components\Ledger\Http\Resources\LedgerResource;
 
 class EloquentLedgerRepositoryCreateTest extends TestCase
 {

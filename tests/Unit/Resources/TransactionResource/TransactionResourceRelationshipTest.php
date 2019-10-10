@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Transaction;
-use App\Transaction\Http\Resources\TransactionResource;
-use App\Ledger\Http\Resources\LedgerResource;
+use App\Components\Transaction\Http\Resources\TransactionResource;
+use App\Components\Ledger\Http\Resources\LedgerResource;
 
 class TransactionResourceRelationshipsTest extends TestCase
 {

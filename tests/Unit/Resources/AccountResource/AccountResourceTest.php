@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Account;
-use App\Account\Http\Resources\AccountResource;
+use App\Components\Account\Http\Resources\AccountResource;
 
 class AccountResourceTest extends TestCase
 {

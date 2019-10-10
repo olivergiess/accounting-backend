@@ -6,9 +6,9 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Models\Ledger;
-use App\Ledger\Http\Resources\LedgerResource;
-use App\Account\Http\Resources\AccountResource;
-use App\Transaction\Http\Resources\TransactionCollection;
+use App\Components\Ledger\Http\Resources\LedgerResource;
+use App\Components\Account\Http\Resources\AccountResource;
+use App\Components\Transaction\Http\Resources\TransactionCollection;
 
 class LedgerResourceRelationshipsTest extends TestCase
 {

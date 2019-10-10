@@ -5,8 +5,8 @@ namespace Tests\Unit\Libraries;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-use App\Http\Rules\Can;
-use App\Account\Http\Resources\AccountResource;
+use App\Rules\Can;
+use App\Components\Account\Http\Resources\AccountResource;
 use App\Models\User;
 use Laravel\Passport\Passport;
 use App\Models\Account;
